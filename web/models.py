@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from server import db
+from .server import db
 
 
 class Player(db.Model):
@@ -31,8 +31,8 @@ class Tournament(db.Model):
     year = db.Column(db.Date, nullable=False)
     title = db.Column(db.Integer, db.ForeignKey("title.id"), nullable=False)
     winner = db.Column(db.Integer, db.ForeignKey("player.id"), nullable=False)
-    runner-up = db.Column(db.Integer, db.ForeignKey("player.id"), nullable=False)
+    runner_up = db.Column(db.Integer, db.ForeignKey("player.id"), nullable=False)
     score = db.Column(db.String)
     time_added = db.Column(db.Datetime, default=datetime.now)
     time_edited = db.Column(db.Datetime, default=datetime.now)
-    
+

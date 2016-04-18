@@ -10,4 +10,4 @@ app.config['SESSION_TYPE'] = 'memcached'
 app.config['SECRET_KEY'] = 'super secret key'
 
 
-import views
+import web.views
