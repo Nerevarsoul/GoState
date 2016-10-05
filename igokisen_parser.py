@@ -1,3 +1,4 @@
+import json
 import psycopg2
 from urllib.parse import urljoin
 
@@ -6,7 +7,7 @@ from bs4 import BeautifulSoup
 
 from secret import *
 
-_base_url = "http://igokisen.web.fc2.com/news.html"
+_base_url = "http://igokisen.web.fc2.com/news.json"
 _site_url = "http://igokisen.web.fc2.com/"
 
 
@@ -21,22 +22,15 @@ def connect_to_database():
 
 def _get_urls():
     names = []
-    doc = BeautifulSoup(requests.get(_base_url).content, "html.parser")
-    trs = doc.find_all("tr", _class="back5")
-    for tr in trs:
-        tds = tr.find_all('td')
-        tour = td[0].find_all("a")[0]
-        href = urljoin(_site_url, tour["href"])
-        name = tour["text"]
-        update = td[-1]["text"]
-        names.append(name)
-    return names
+    data = requests.get(_base_url).content
+    json_data = json.loads(data.decode())    
+    return json_data
 
 
 def main():
-    names = _get_urls()
-    for name in names:
-        print(name)
+    json_data = _get_urls()
+    for entry in json_data:
+        print(entry['titleName'])
     
 
 if __name__ == '__main__':
