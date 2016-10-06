@@ -22,6 +22,8 @@ class Title(db.Model):
     country = db.Column(db.String(120), nullable=False)
     status = db.Column(db.String(120), nullable=False)
     defunct = db.Column(db.Boolean, default=False)
+    current_winner = db.Column(db.String(120))
+    holding = db.Column(db.Integer)
     time_added = db.Column(db.Datetime, default=datetime.now)
     time_edited = db.Column(db.Datetime, default=datetime.now)
     
