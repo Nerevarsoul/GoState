@@ -28,9 +28,13 @@ def _get_urls():
 
 
 def main():
-    json_data = _get_urls()
-    for entry in json_data:
-        print(entry['titleName'])
+    conn = connect_to_database()
+    if conn:
+       cur = conn.cursor() 
+       for entry in _get_urls():
+            cur.execute("INSERT INTO title (name, holding, country, current_winner) VALUES (%s, %s, %s, %s)", (entry['titleName'], entry['holding'], entry['countryName'], entry['winnerName']))
+       cur.close()
+       conn.close()
     
 
 if __name__ == '__main__':
