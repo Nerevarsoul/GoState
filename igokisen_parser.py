@@ -32,7 +32,8 @@ def main():
     if conn:
        cur = conn.cursor() 
        for entry in _get_urls():
-            cur.execute("INSERT INTO title (name, holding, country, current_winner) VALUES (%s, %s, %s, %s)", (entry['titleName'], entry['holding'], entry['countryName'], entry['winnerName']))
+            cur.execute("INSERT INTO title (name, holding, country, current_winner, status) VALUES (%s, %s, %s, %s, 'active')", (entry['titleName'], entry['holding'], entry['countryName'], entry['winnerName']))
+       conn.commit()
        cur.close()
        conn.close()
     
