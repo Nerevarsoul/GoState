@@ -1,4 +1,5 @@
-from app.server import db
+from web.server import db
 
 
 db.create_all()
+
