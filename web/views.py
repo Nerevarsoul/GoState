@@ -10,6 +10,12 @@ def index_view():
 
 
 @app.route('/titles')
-def index_view():
+def list_titles():
     titles = Title.objects.all()
     return jsonify(titles=titles)
+
+
+@app.route('/titles/<int:title_id>')
+def title_view(title_id):
+    titles = Title.objects.get(id=title_id)
+    return jsonify(title=title)
