@@ -1,0 +1,22 @@
+{
+  "name": "gostate",
+  "version": "1.0.0",
+  "description": "Statistic for profesional go tournaments",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nerevarsoul/GoState.git"
+  },
+  "author": "Neri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nerevarsoul/GoState/issues"
+  },
+  "homepage": "https://github.com/Nerevarsoul/GoState#readme",
+  "dependencies": {
+    "react": "^15.3.2"
+  }
+}
