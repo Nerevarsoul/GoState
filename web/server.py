@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.contrib.fixers import ProxyFix
 
 from secret import *
@@ -35,7 +35,3 @@ def create_app():
 
     return app
 
-
-if __name__ == "__main__":
-    application.run(host='0.0.0.0')
-    
