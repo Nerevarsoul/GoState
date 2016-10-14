@@ -4,13 +4,12 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.contrib.fixers import ProxyFix
 
-from secret import *
 
 basedir = os.path.join(os.path.abspath(os.path.dirname(__file__)), '../')
 
 app = Flask(__name__)
 app.config.from_object("web.config.Config")
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gostate_user:{}@localhost/gostate".format(DATABASE_PASS)
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gostate_user:{}@localhost/gostate".format(os.environ['DATABASE_PASS'])
 app.config['SESSION_TYPE'] = 'memcached'
 app.config['SECRET_KEY'] = 'super secret key'
 
