@@ -4,5 +4,6 @@ beautifulsoup4==4.5.1
 celery==3.1.24
 flask-marshmallow==0.7.0
 gunicorn==19.6.0
+marshmallow-sqlalchemy==0.12.0
 psycopg2==2.6.1
 requests==2.11.1
