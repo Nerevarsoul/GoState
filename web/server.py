@@ -17,6 +17,9 @@ app.config['SECRET_KEY'] = 'super secret key'
 # flask-sqlalchemy
 db = SQLAlchemy(app)
 
+# flask-marshmallow
+ma = Marshmallow(app)
+
 import web.views
 app.wsgi_app = ProxyFix(app.wsgi_app)
 
