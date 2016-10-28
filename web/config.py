@@ -13,7 +13,7 @@ class Config(object):
     # SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 
-class TestingConfig(Config)
+class TestingConfig(Config):
     TESTING = True
 
 

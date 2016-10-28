@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-  Hello word!
+  <ul>
+    <li><a href="{{ url_for('.list_titles') }}">Титулы</a></li>
+    <li>Игроки</li> 
+  </ul>  
 {% endblock  %}
 
