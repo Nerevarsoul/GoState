@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+import flask_login
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from werkzeug.contrib.fixers import ProxyFix
@@ -14,6 +15,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gostate_user:{}@localhost/
 app.config['SESSION_TYPE'] = 'memcached'
 app.config['SECRET_KEY'] = 'super secret key'
 
+
+# flask-login
+login_manager = flask_login.LoginManager()
+login_manager.init_app(app)
 
 # flask-sqlalchemy
 db = SQLAlchemy(app)
