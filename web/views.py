@@ -16,6 +16,12 @@ def list_titles():
     return render_template('titles.html', titles=titles)
 
 
+@app.route('/titles/<string:country>', methods=['GET'])
+def country_titles(country):
+    titles = Title.query.filter_by(country=country)
+    return render_template('titles.html', titles=titles)
+
+
 @app.route('/api/titles', methods=['GET'])
 def api_list_titles():
     titles = Title.query.all()
