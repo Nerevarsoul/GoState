@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Список титулов</h1>
+  <table>
+  {% for title in titles%}
+    <tr>
+      <td>{{ title.country  }}</td>
+      <td>{{ title.current_winner  }}</td>
+      <td>{{ title.name  }}</td>
+      <td>{{ title.holding }}</td>
+    </tr>
+  {% endfor  %}
+  </table>  
+{% endblock %}

@@ -5,20 +5,26 @@ from .models import Title
 from .serializers import title_schema, titles_schema
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index_view():
     return render_template('index.html')
 
 
-@app.route('/titles')
+@app.route('/titles', methods=['GET'])
 def list_titles():
+    titles = Title.query.all()
+    return render_template('titles.html', titles=titles)
+
+
+@app.route('/api/titles', methods=['GET'])
+def api_list_titles():
     titles = Title.query.all()
     # print(len(titles))
     data = titles_schema.dump(titles)
     return jsonify(data.data)
 
 
-@app.route('/titles/<int:title_id>')
+@app.route('/api/titles/<int:title_id>', methods=['GET'])
 def title_view(title_id):
     title = Title.query.get(title_id)
     data = title_schema.dump(title)
