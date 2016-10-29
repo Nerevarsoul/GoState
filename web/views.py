@@ -13,15 +13,16 @@ def index_view():
 @app.route('/titles')
 def list_titles():
     titles = Title.query.all()
-    print(len(titles))
+    # print(len(titles))
     data = titles_schema.dump(titles)
     return jsonify(data.data)
 
 
 @app.route('/titles/<int:title_id>')
 def title_view(title_id):
-    titles = Title.query.get(id=title_id)
-    return jsonify(title=title)
+    title = Title.query.get(title_id)
+    data = title_schema.dump(title)
+    return jsonify(data.data)
 
 
 @app.errorhandler(400)
