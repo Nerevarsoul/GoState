@@ -22,6 +22,12 @@ def country_titles(country):
     return render_template('titles.html', titles=titles)
 
 
+@app.route('/titles/<int:title_id>', methods=['GET'])
+def title_view(title_id):
+    title = Title.query.get(title_id)
+    return render_template('title_view.html', title=title)
+
+
 @app.route('/api/titles', methods=['GET'])
 def api_list_titles():
     titles = Title.query.all()
@@ -31,7 +37,7 @@ def api_list_titles():
 
 
 @app.route('/api/titles/<int:title_id>', methods=['GET'])
-def title_view(title_id):
+def api_title(title_id):
     title = Title.query.get(title_id)
     data = title_schema.dump(title)
     return jsonify(data.data)
