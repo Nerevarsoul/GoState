@@ -13,8 +13,8 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = "postgresql://gostate_user:{}@localhost/gostate".format(os.environ['DATABASE_PASS'])
-    CELERY_BROKER_URL = 'redis://localhost:6379/0'
-    CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+    # CELERY_BROKER_URL = 'redis://localhost:6379/0'
+    # CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
     SESSION_TYPE = 'memcached'
     SECRET_KEY = 'super secret key'
 

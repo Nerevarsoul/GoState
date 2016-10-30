@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 # from werkzeug.contrib.fixers import ProxyFix
 
-from celery import Celery
+# from celery import Celery
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -16,8 +16,8 @@ app.config.from_object("web.config.ProductionConfig")
 
 
 # Celery
-celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-celery.conf.update(app.config)
+# celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+# celery.conf.update(app.config)
 
 # flask-login
 login_manager = flask_login.LoginManager()
