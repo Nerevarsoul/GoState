@@ -1,20 +1,14 @@
-import requests
+from celery.task.schedules import crontab
+from celery.task import periodic_task
 
-from .server import celery
-
-
-_igokisen_base_url = "http://igokisen.web.fc2.com/news.json"
-_igokisen_site_url = "http://igokisen.web.fc2.com/"
+from .helpers import igokisen_get_json, update_title
 
 
-@celery.task
+@periodic_task(run_every=crontab(minute=0, hour=4))
 def update_igokisen():
     titles = _igokisen_get_json()
+    for title in titles:
+        if title.changeFlag:
+            update_title(title)
     return
-
-
-def _igokisen_get_json():
-    data = requests.get(_igokisen_base_url).content
-    json_data = json.loads(data.decode())    
-    return json_data
 
