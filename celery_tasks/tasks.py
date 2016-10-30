@@ -6,9 +6,9 @@ from .helpers import igokisen_get_json, update_title
 
 @periodic_task(run_every=crontab(minute=0, hour=4))
 def update_igokisen():
-    titles = _igokisen_get_json()
+    titles = igokisen_get_json()
     for title in titles:
-        if title.changeFlag:
+        if title['changeFlag']:
             update_title(title)
     return
 
