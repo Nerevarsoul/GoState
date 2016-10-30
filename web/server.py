@@ -4,7 +4,7 @@ from flask import Flask
 import flask_login
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from werkzeug.contrib.fixers import ProxyFix
+# from werkzeug.contrib.fixers import ProxyFix
 
 from celery import Celery
 
@@ -30,19 +30,19 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 import web.views
-app.wsgi_app = ProxyFix(app.wsgi_app)
+# app.wsgi_app = ProxyFix(app.wsgi_app)
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object(os.environ['APP_SETTINGS'])
+# def create_app():
+    # app = Flask(__name__)
+    # app.config.from_object(os.environ['APP_SETTINGS'])
 
-    db.init_app(app)
-    with app.test_request_context():
-        db.create_all()
+    # db.init_app(app)
+    # with app.test_request_context():
+        # db.create_all()
 
-    import app.firstmodule.controllers as firstmodule
+    # import app.firstmodule.controllers as firstmodule
 
-    app.register_blueprint(firstmodule.module)
+    # app.register_blueprint(firstmodule.module)
 
-    return app
+    # return app
 

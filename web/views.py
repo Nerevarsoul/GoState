@@ -55,10 +55,10 @@ def internal_error(exception):
     return render_template('403.html'), 403
 
 
-@app.errorhandler(404)
-def internal_error(exception):
-    app.logger.error(exception)
-    return render_template('404.html'), 404
+# @app.errorhandler(404)
+# def internal_error(exception):
+    # app.logger.error(exception)
+    # return render_template('404.html'), 404
 
 
 @app.errorhandler(500)
