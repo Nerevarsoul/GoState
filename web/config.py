@@ -5,13 +5,6 @@ class Config(object):
 
     DEBUG = True
 
-    # config db
-    # DB_USER_NAME = os.environ['DB_USER_NAME']
-    # DB_PASSWORD = os.environ['DB_PASSWORD']
-    # DB_HOST = "localhost"
-    # DB_BASE_NAME = os.environ['DB_BASE_NAME']
-    # SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-
 
 class TestingConfig(Config):
     TESTING = True
@@ -19,4 +12,9 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG = False
+    SQLALCHEMY_DATABASE_URI = "postgresql://gostate_user:{}@localhost/gostate".format(os.environ['DATABASE_PASS'])
+    CELERY_BROKER_URL = 'redis://localhost:6379/0'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+    SESSION_TYPE = 'memcached'
+    SECRET_KEY = 'super secret key'
 

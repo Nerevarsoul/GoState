@@ -43,10 +43,10 @@ def api_title(title_id):
     return jsonify(data.data)
 
 
-@app.errorhandler(400)
-def internal_error(exception):
-    app.logger.error(exception)
-    return render_template('400.html'), 400
+# @app.errorhandler(400)
+# def internal_error(exception):
+    # app.logger.error(exception)
+    # return render_template('400.html'), 400
 
 
 @app.errorhandler(403)

@@ -6,15 +6,18 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from werkzeug.contrib.fixers import ProxyFix
 
+from celery import Celery
 
-basedir = os.path.join(os.path.abspath(os.path.dirname(__file__)), '../')
+
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
-app.config.from_object("web.config.Config")
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gostate_user:{}@localhost/gostate".format(os.environ['DATABASE_PASS'])
-app.config['SESSION_TYPE'] = 'memcached'
-app.config['SECRET_KEY'] = 'super secret key'
+app.config.from_object("web.config.ProductionConfig")
 
+
+# Celery
+celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+celery.conf.update(app.config)
 
 # flask-login
 login_manager = flask_login.LoginManager()
