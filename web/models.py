@@ -15,6 +15,8 @@ class Player(db.Model):
     rank = db.Column(db.Integer)
     time_edited = db.Column(db.DateTime, default=datetime.now())
 
+    __table_args__ = (db.UniqueConstraint('first_name', 'last_name', name='_full_name'),)
+
     def __repr__(self):
         return '<Player object {}>'.format(self.id)
 
@@ -34,6 +36,8 @@ class Title(db.Model):
     holding = db.Column(db.Integer)
     time_added = db.Column(db.DateTime, default=datetime.now())
     time_edited = db.Column(db.DateTime, default=datetime.now())
+
+    __table_args__ = (db.UniqueConstraint('name', 'country', name='_country_name'),)
 
     def __repr__(self):
         return '<Title object {}>'.format(self.id)
@@ -58,4 +62,6 @@ class Tournament(db.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.title, self.year)
+
+    __table_args__ = (db.UniqueConstraint('title', 'year', name='_year_title'),)
 
