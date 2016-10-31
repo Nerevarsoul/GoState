@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from sqlalchemy_utils import ChoiceType
+
 from .server import db
 
 
@@ -26,11 +28,28 @@ class Player(db.Model):
     
 class Title(db.Model):
 
+    STATUS = [
+        ('int', 'International'),
+        ('con', 'Continental'),
+        ('nat', 'National')
+    ]
+
+    TYPES = [
+        ("major", "Major"),
+        ("minor", "Minor"),
+        ("w", "Women's"),
+        ('team', 'Team'),
+        ('hayago', 'Hayago'),
+        ('leagues', 'Leagues'),
+    ]
+
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     started = db.Column(db.String(4))
     country = db.Column(db.String(120), nullable=False)
-    status = db.Column(db.String(120), nullable=False)
+    status = db.Column(ChoiceType(STATUS))
+    kind = db.Column(ChoiceType(TYPES))
     defunct = db.Column(db.Boolean, default=False)
     current_winner = db.Column(db.Integer, db.ForeignKey("player.id"))
     holding = db.Column(db.Integer)
