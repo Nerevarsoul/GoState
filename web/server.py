@@ -4,6 +4,7 @@ from flask import Flask
 import flask_login
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_migrate import Migrate
 # from werkzeug.contrib.fixers import ProxyFix
 
 # from celery import Celery
@@ -25,6 +26,7 @@ login_manager.init_app(app)
 
 # flask-sqlalchemy
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 # flask-marshmallow
 ma = Marshmallow(app)
