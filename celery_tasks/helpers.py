@@ -27,13 +27,14 @@ def get_or_create_igokisen_player(winner_name, country_name):
 
 def update_title(json_title):
     title = Title.query.filter_by(name=json_title['titleName'], country=json_title['countryName']).first()
-    if title:
-        title.holding = json_title['holding']
-        title.current_winner = json_title['winnerName']
-        title.time_edited = datetime.now()
-    else:
-        title=Title(name=json_title['titleName'], country=json_title['countryName'],
-                    holding=json_title['holding'], current_winner=json_title['winnerName'])
+    player = get_or_create_igokisen_player(json_title['winnerName'], json_title['countryName'])
+    if not title:
+        title=Title(name=json_title['titleName'], country=json_title['countryName'])
+    title.holding = json_title['holding']
+    if player:
+        title.current_winner = player.id
+    title.time_edited = datetime.now()
+    
     db.session.add(title)
     db.session.commit()
 
