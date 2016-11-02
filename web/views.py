@@ -1,7 +1,7 @@
 from flask import render_template, jsonify, request
 
-from .server import app
-from .models import Title
+from .server import app, db
+from .models import Title, Player
 from .serializers import title_schema, titles_schema
 
 
@@ -12,7 +12,12 @@ def index_view():
 
 @app.route('/titles', methods=['GET'])
 def list_titles():
-    titles = Title.query.all()
+    query = db.session.query(Title, Player)
+    records = query.all()
+    titles = []
+    for record in records:
+        titles.append({'id': record[0].id, 'name': record[0].name, 'country': record[0].country, 
+                       'holding': record[0].holding, 'current_winner': str(record[1])})
     return render_template('titles.html', titles=titles)
 
 
