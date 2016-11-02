@@ -11,7 +11,7 @@ _igokisen_site_url = "http://igokisen.web.fc2.com/"
 
 
 def get_or_create_igokisen_player(winner_name, country_name):
-    if 'Team' in winner_name:
+    if not winner_name or 'Team' in winner_name:
         return
     last_name = winner_name.split()[0]
     first_name = winner_name.split()[1].split('(')[0]
