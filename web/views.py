@@ -12,12 +12,8 @@ def index_view():
 
 @app.route('/titles', methods=['GET'])
 def list_titles():
-    query = db.session.query(Title, Player)
-    records = query.all()
-    titles = []
-    for record in records:
-        titles.append({'id': record[0].id, 'name': record[0].name, 'country': record[0].country, 
-                       'holding': record[0].holding, 'current_winner': str(record[1])})
+    query = db.session.query(Title).options(db.subqueryload(Title.winner))
+    titles = query.all()
     return render_template('titles.html', titles=titles)
 
 
