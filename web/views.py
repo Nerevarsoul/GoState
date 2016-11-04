@@ -17,6 +17,15 @@ def list_titles():
     return render_template('titles.html', titles=titles)
 
 
+@app.route('/players/<string:country>', methods=['GET'])
+def list_players(country=None):
+    query = db.session.query(Player)
+    if country:
+        query = query.filter_by(country=country)
+    players = query.all()
+    return render_template('players.html', players=players)
+
+
 @app.route('/titles/<string:country>', methods=['GET'])
 def country_titles(country):
     titles = Title.query.filter_by(country=country)
@@ -27,6 +36,12 @@ def country_titles(country):
 def title_view(title_id):
     title = Title.query.get(title_id)
     return render_template('title_view.html', title=title)
+
+
+@app.route('/players/<int:player_id>', methods=['GET'])
+def player_view(player_id):
+    player = Player.query.get(player_id)
+    return render_template('player_view.html', player=player)
 
 
 @app.route('/api/titles', methods=['GET'])
