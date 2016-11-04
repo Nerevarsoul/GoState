@@ -10,26 +10,22 @@ def index_view():
     return render_template('index.html')
 
 
-@app.route('/titles', methods=['GET'])
+@app.route('/titles/<string:country>', methods=['GET'])
 def list_titles():
     query = db.session.query(Title).options(db.subqueryload(Title.winner))
+    if country:
+        query = query.filter_by(country=country)
     titles = query.all()
     return render_template('titles.html', titles=titles)
 
 
 @app.route('/players/<string:country>', methods=['GET'])
 def list_players(country=None):
-    query = db.session.query(Player)
+    query = db.session.query(Player).options(db.subqueryload(Player.titles))
     if country:
         query = query.filter_by(country=country)
     players = query.all()
     return render_template('players.html', players=players)
-
-
-@app.route('/titles/<string:country>', methods=['GET'])
-def country_titles(country):
-    titles = Title.query.filter_by(country=country)
-    return render_template('titles.html', titles=titles)
 
 
 @app.route('/titles/<int:title_id>', methods=['GET'])
