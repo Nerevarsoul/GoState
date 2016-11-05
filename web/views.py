@@ -11,9 +11,9 @@ def index_view():
 
 
 @app.route('/titles/<string:country>', methods=['GET'])
-def list_titles():
+def list_titles(country):
     query = db.session.query(Title).options(db.subqueryload(Title.winner))
-    if country:
+    if country and country != 'all':
         query = query.filter_by(country=country)
     titles = query.all()
     return render_template('titles.html', titles=titles)

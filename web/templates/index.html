@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
   <ul>
-    <li><a href="{{ url_for('.list_titles') }}">Титулы</a></li>
+    <li><a href="{{ url_for('.list_titles', country='all') }}">Титулы</a></li>
     <li>Игроки</li> 
   </ul>  
 {% endblock  %}

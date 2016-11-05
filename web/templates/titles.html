@@ -4,7 +4,7 @@
   <table>
   {% for title in titles%}
     <tr>
-      <td><a href="{{ url_for('.country_titles', country=title.country) }}">{{ title.country  }}</a></td>
+      <td><a href="{{ url_for('.list_titles', country=title.country) }}">{{ title.country  }}</a></td>
       <td>{{ title.winner  }}</td>
       <td><a href="{{ url_for('.title_view', title_id=title.id) }}">{{ title.name  }}</a></td>
       <td>{{ title.holding }}</td>
