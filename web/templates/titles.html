@@ -5,7 +5,11 @@
   {% for title in titles%}
     <tr>
       <td><a href="{{ url_for('.list_titles', country=title.country) }}">{{ title.country  }}</a></td>
-      <td>{{ title.winner  }}</td>
+      {% if title.winner %}
+          <td><a href="{{ url_for('.player_view', player_id=title.winner.id) }}">{{ title.winner  }}</a></td>
+      {% else %}
+          <td>-</td>
+      {% endif %}
       <td><a href="{{ url_for('.title_view', title_id=title.id) }}">{{ title.name  }}</a></td>
       <td>{{ title.holding }}</td>
     </tr>

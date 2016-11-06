@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>{{ title.name }}</h1>
-  <h3>{{ title.current_winner }}</h3>
-  <h4><a href="{{ url_for('.country_titles', country=title.country) }}">{{ title.country }}</a></h4>
+  {% if title.winner %}
+    <h3><a href="{{ url_for('.player_view', player_id=title.winner.id) }}">{{ title.winner  }}</a></h3>
+  {% else %}
+    <h3>-</h3>
+  {% endif %}
+  <h4><a href="{{ url_for('.list_titles', country=title.country) }}">{{ title.country }}</a></h4>
   <h4>{{ title.holding }}</h4>
   <p>Description</p>  
 {% endblock  %}
