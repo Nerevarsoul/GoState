@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Список игроков</h1>
+  <table>
+  {% for player in players%}
+    <tr>
+      <td><a href="{{ url_for('.player_view', player_id=player.id) }}">{{ player }}</a></td>
+      <td><a href="{{ url_for('.list_players', country=player.country) }}">{{ player.country }}</a></td>
+    </tr>
+  {% endfor  %}
+  </table>  
+{% endblock %}

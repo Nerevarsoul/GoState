@@ -2,7 +2,7 @@ import json
 import requests
 from datetime import datetime
 
-from web.models import Player, Title
+from web.models import Player, Title, Tournament
 from web.server import db
 
 
@@ -25,9 +25,16 @@ def get_or_create_igokisen_player(winner_name, country_name):
     return player
 
 
+def create_tournament(title_id, player_id, holding):
+    tour = Tournament(title=title_id, holding=holding, winner=player_id)
+    db.session.add(tour)
+    db.session.commit()
+
+
 def update_title(json_title):
     title = Title.query.filter_by(name=json_title['titleName'], country=json_title['countryName']).first()
     player = get_or_create_igokisen_player(json_title['winnerName'], json_title['countryName'])
+
     if not title:
         title=Title(name=json_title['titleName'], country=json_title['countryName'])
     title.holding = json_title['holding']
@@ -37,6 +44,10 @@ def update_title(json_title):
     
     db.session.add(title)
     db.session.commit()
+
+    if not Tournament.query.filter_by(title=title.id, holding=title.holding):
+        create_tournament(title.id, player.id, json_title)
+
 
 
 def igokisen_get_json():

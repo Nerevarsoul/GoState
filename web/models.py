@@ -55,7 +55,7 @@ class Title(db.Model):
     defunct = db.Column(db.Boolean, default=False)
     current_winner = db.Column(db.Integer, db.ForeignKey("player.id"))
     winner = db.relationship('Player')
-    holding = db.Column(db.Integer)
+    holding = db.Column(db.Integer, nullable=False)
     time_added = db.Column(db.DateTime, default=datetime.now())
     time_edited = db.Column(db.DateTime, default=datetime.now())
 
@@ -71,7 +71,8 @@ class Title(db.Model):
 class Tournament(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    year = db.Column(db.Date, nullable=False)
+    year = db.Column(db.Date)
+    holding = db.Column(db.Integer, nullable=False)
     title = db.Column(db.Integer, db.ForeignKey("title.id"), nullable=False)
     winner = db.Column(db.Integer, db.ForeignKey("player.id"))
     runner_up = db.Column(db.Integer, db.ForeignKey("player.id"))
