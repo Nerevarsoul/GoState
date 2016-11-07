@@ -22,7 +22,7 @@ def list_titles(country):
 @app.route('/players/<string:country>', methods=['GET'])
 def list_players(country=None):
     query = db.session.query(Player).options(db.subqueryload(Player.titles))
-    if country:
+    if country and country != 'all':
         query = query.filter_by(country=country)
     players = query.all()
     return render_template('players.html', players=players)
