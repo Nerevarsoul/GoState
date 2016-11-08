@@ -59,6 +59,8 @@ class Title(db.Model):
     time_added = db.Column(db.DateTime, default=datetime.now())
     time_edited = db.Column(db.DateTime, default=datetime.now())
 
+    tournaments = db.relationship('Tournament')
+
     __table_args__ = (db.UniqueConstraint('name', 'country', name='_country_name'),)
 
     def __repr__(self):
