@@ -1,5 +1,5 @@
 from celery.task.schedules import crontab
-from celery.task import periodic_task
+from celery.task import task, periodic_task
 
 from .helpers import igokisen_get_json, update_title
 
@@ -12,3 +12,7 @@ def update_igokisen():
             update_title(title)
     return
 
+
+@task
+def upload_game(title):
+    pass
