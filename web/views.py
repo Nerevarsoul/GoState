@@ -1,7 +1,7 @@
 from flask import render_template, jsonify, request
 
 from .server import app, db
-from .models import Title, Player
+from .models import Title, Player, Tournament, Game
 from .serializers import title_schema, titles_schema
 
 
@@ -10,6 +10,7 @@ def index_view():
     return render_template('index.html')
 
 
+# list object view
 @app.route('/titles/<string:country>', methods=['GET'])
 def list_titles(country):
     query = db.session.query(Title).options(db.subqueryload(Title.winner))
@@ -28,6 +29,17 @@ def list_players(country=None):
     return render_template('players.html', players=players)
 
 
+@app.route('/tournaments/<string:country>', methods=['GET'])
+def list_tournaments(country=None):
+    pass
+
+
+@app.route('/games/<string:country>', methods=['GET'])
+def list_games(country=None):
+    pass
+
+
+# Single object view
 @app.route('/titles/<int:title_id>', methods=['GET'])
 def title_view(title_id):
     title = Title.query.get(title_id)
@@ -40,6 +52,17 @@ def player_view(player_id):
     return render_template('player_view.html', player=player)
 
 
+@app.route('/tournaments/<int:tournament_id>', methods=['GET'])
+def tournament_view(title_id):
+    pass
+
+
+@app.route('/games/<int:game_id>', methods=['GET'])
+def game_view(player_id):
+    pass
+
+
+#API
 @app.route('/api/titles', methods=['GET'])
 def api_list_titles():
     titles = Title.query.all()
@@ -55,6 +78,7 @@ def api_title(title_id):
     return jsonify(data.data)
 
 
+# Errors
 # @app.errorhandler(400)
 # def internal_error(exception):
     # app.logger.error(exception)
@@ -77,4 +101,3 @@ def internal_error(exception):
 def internal_error(exception):
     app.logger.error(exception)
     return render_template('500.html'), 500
-
