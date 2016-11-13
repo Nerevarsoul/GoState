@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from sqlalchemy_utils import ChoiceType
 
@@ -89,4 +89,20 @@ class Tournament(db.Model):
         return '{} - {}'.format(self.title, self.year)
 
     __table_args__ = (db.UniqueConstraint('title', 'year', name='_year_title'),)
+    
+    
+class Game(db.Model):
+        
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date, default=date.today())
+    white_player = db.Column(db.Integer, db.ForeignKey("player.id"))
+    black_player = db.Column(db.Integer, db.ForeignKey("player.id"))
+    winner = db.Column(db.String)
+    result = db.Column(db.String)
+    filename = db.Column(db.String)
+        
+    def __repr__(self):
+        return '<Game object {}>'.format(self.id)
 
+    def __str__(self):
+        return '{} - {}: '.format(self.white_player, self.black_player, self.result)
