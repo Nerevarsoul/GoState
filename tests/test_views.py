@@ -10,3 +10,6 @@ class BaseTestCase(unittest.TestCase):
         app.config.from_object("web.config.TestingConfig")
         cls.app = app.test_client()
 
+
+if __name__ == "__main__":
+    unittest.main()
