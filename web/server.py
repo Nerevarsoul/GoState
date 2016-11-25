@@ -6,6 +6,7 @@ import flask_login
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
+from flask_debugtoolbar import DebugToolbarExtension
 # from werkzeug.contrib.fixers import ProxyFix
 
 # from celery import Celery
@@ -22,6 +23,9 @@ handler.setLevel(app.config['LOGGING_LEVEL'])
 formatter = logging.Formatter(app.config['LOGGING_FORMAT'])
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
+
+app.debug = True
+toolbar = DebugToolbarExtension(app)
 
 # Celery
 # celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])

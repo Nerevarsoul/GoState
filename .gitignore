@@ -64,5 +64,7 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
-
+#Static
+.bowerrc
+web/static/components/
 
