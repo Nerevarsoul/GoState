@@ -1,3 +1,4 @@
+import logging
 import os
 
 from flask import Flask
@@ -15,6 +16,12 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 app.config.from_object("web.config.ProductionConfig")
 
+# Configure logging
+handler = logging.FileHandler(app.config['LOGGING_LOCATION'])
+handler.setLevel(app.config['LOGGING_LEVEL'])
+formatter = logging.Formatter(app.config['LOGGING_FORMAT'])
+handler.setFormatter(formatter)
+app.logger.addHandler(handler)
 
 # Celery
 # celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
