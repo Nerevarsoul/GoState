@@ -1,3 +1,4 @@
+import logging
 import os
 
 
@@ -17,4 +18,6 @@ class ProductionConfig(Config):
     # CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
     SESSION_TYPE = 'memcached'
     SECRET_KEY = 'super secret key'
-
+    LOGGING_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    LOGGING_LOCATION = 'logs/flask.log'
+    LOGGING_LEVEL = logging.DEBUG
