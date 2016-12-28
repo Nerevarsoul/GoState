@@ -31,14 +31,16 @@ def get_or_create_igokisen_player(name, country_name):
     return player
 
 
-def get_or_create_tournament(title, holding):
-    return 1
-
-
-def create_tournament(title_id, player_id, holding):
-    tour = Tournament(title=title_id, holding=holding, winner=player_id)
+def get_or_create_tournament(title_id, player_id, holding):
+    tour = Tournament.query(title=title_id, holding=holding).first()
+    if tour:
+        if not tour.winner and player_id:
+            tour.winner = player_id
+    else:
+        tour = Tournament(title=title_id, holding=holding, winner=player_id)
     db.session.add(tour)
     db.session.commit()
+    return tour
 
 
 def update_title(json_title):
@@ -57,7 +59,7 @@ def update_title(json_title):
     db.session.commit()
 
     if not Tournament.query.filter_by(title=title.id, holding=title.holding):
-        create_tournament(title.id, player.id, json_title)
+        get_or_create_tournament(title.id, player.id, json_title)
 
 
 def igokisen_get_json():
@@ -103,5 +105,5 @@ def get_games(title):
                     if row.startswith(';B'):
                         break
                 game = Game(white_player=white_player, black_player=black_player, date=game_date, result=result)
-                game.tournament = get_or_create_tournament(title, holding)
+                game.tournament = get_or_create_tournament(title, None, holding)
         return

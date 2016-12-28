@@ -18,5 +18,5 @@ def update_igokisen():
 
 
 @task
-def upload_game(title):
+def upload_games(title):
     pass
