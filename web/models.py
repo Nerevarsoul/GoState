@@ -45,7 +45,6 @@ class Title(db.Model):
         ('leagues', 'Leagues'),
     ]
 
-
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     started = db.Column(db.String(4))
@@ -58,6 +57,7 @@ class Title(db.Model):
     holding = db.Column(db.Integer, nullable=False)
     time_added = db.Column(db.DateTime, default=datetime.now())
     time_edited = db.Column(db.DateTime, default=datetime.now())
+    igo_url = db.Column(db.String, unique=True, index=True)
 
     tournaments = db.relationship('Tournament')
 
@@ -82,6 +82,8 @@ class Tournament(db.Model):
     time_added = db.Column(db.DateTime, default=datetime.now())
     time_edited = db.Column(db.DateTime, default=datetime.now())
 
+    games = db.relationship('Game')
+
     def __repr__(self):
         return '<Tournament object {}>'.format(self.id)
 
@@ -92,14 +94,30 @@ class Tournament(db.Model):
     
     
 class Game(db.Model):
+
+    RESULT = [
+        ('w', 'White'),
+        ('b', 'Black'),
+        ('j', 'Jigo')
+    ]
+
+    STAGE = [
+        ('f', 'Final'),
+        ('p', 'Preliminary'),
+        ('l', 'League')
+    ]
         
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, default=date.today())
     white_player = db.Column(db.Integer, db.ForeignKey("player.id"))
     black_player = db.Column(db.Integer, db.ForeignKey("player.id"))
-    winner = db.Column(db.String)
+    winner = db.Column(ChoiceType(RESULT))
     result = db.Column(db.String)
     filename = db.Column(db.String)
+    igo_url = db.Column(db.String, unique=True, index=True)
+    tournament = db.Column(db.Integer, db.ForeignKey("tournament.id"))
+    stage = db.Column(ChoiceType(STAGE))
+    event = db.Column(db.String)
         
     def __repr__(self):
         return '<Game object {}>'.format(self.id)
