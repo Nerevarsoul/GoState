@@ -107,3 +107,16 @@ def get_games(title):
                 game = Game(white_player=white_player, black_player=black_player, date=game_date, result=result)
                 game.tournament = get_or_create_tournament(title, None, holding)
         return
+
+
+def get_gokifu_game_data(game_data):
+    fields = {'black_player': ']PB[', 'white_player': ']PW[', 'event': ']EV[', 'date': ']DT[', 'result': ']RE['}
+    for field in fields:
+        index = game_data.index(fields[field])
+        if index:
+            fields[field] = ''
+            while game_data[index+4] != ']':
+                fields[field] += game_data[index+4]
+                index += 1
+    return fields
+
