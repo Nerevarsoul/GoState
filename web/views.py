@@ -13,7 +13,7 @@ def index_view():
 # list object view
 @app.route('/titles/<string:country>', methods=['GET'])
 def list_titles(country):
-    query = db.session.query(Title).options(db.subqueryload(Title.winner))
+    query = db.session.query(Title).outerjoin(Player, Player.id == Title.current_winner)
     if country and country != 'all':
         query = query.filter_by(country=country)
     titles = query.all()
