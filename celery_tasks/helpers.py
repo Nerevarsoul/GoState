@@ -9,8 +9,8 @@ from web.models import Player, Title, Tournament, Game
 from web.server import db
 
 
-_igokisen_base_url = "http://igokisen.web.fc2.com/news.json"
-_igokisen_site_url = "http://igokisen.web.fc2.com/"
+_igokisen_news_url = "https://k2ss.info/igo/news.json"
+_igokisen_site_url = "https://k2ss.info/igo"
 
 
 def get_or_create_igokisen_player(name, country_name):
