@@ -84,39 +84,22 @@ def get_games(title):
             if href not in games:
                 game_url = urljoin(_igokisen_site_url, '/wr', href)
                 game_data = requests.get(game_url).content
-                game_strings = game_data.decode('utf-8').split('\n')
-                for row in game_strings:
-                    if row.startswith('EV'):
-                        event = row[3: -1]
-                        holding = event.split(title.name)[0]
-                        continue
-                    if row.startswith('PW'):
-                        white_player = get_or_create_igokisen_player(row[3: -1], title.country)
-                        continue
-                    if row.startswith('PB'):
-                        black_player = get_or_create_igokisen_player(row[3: -1], title.country)
-                        continue
-                    if row.startswith('DT'):
-                        game_date = row[3: -1]
-                        continue
-                    if row.startswith('RE'):
-                        result = row[3: -1]
-                        continue
-                    if row.startswith(';B'):
-                        break
-                game = Game(white_player=white_player, black_player=black_player, date=game_date, result=result)
+                game_strings = game_data.decode('utf-8')
+                game_fields = get_game_data(game_strings)
+                game = Game(**game_fields)
                 game.tournament = get_or_create_tournament(title, None, holding)
         return
 
 
-def get_gokifu_game_data(game_data):
-    fields = {'black_player': ']PB[', 'white_player': ']PW[', 'event': ']EV[', 'date': ']DT[', 'result': ']RE['}
+def get_game_data(game_data):
+    fields = {'black_player': 'PB[', 'white_player': 'PW[', 'event': 'EV[', 'date': 'DT[', 'result': 'RE['}
     for field in fields:
         index = game_data.index(fields[field])
+        offset = len(fields[field])
+        fields[field] = ''
         if index:
-            fields[field] = ''
-            while game_data[index+4] != ']':
-                fields[field] += game_data[index+4]
+            while game_data[index+offset] != ']':
+                fields[field] += game_data[index+offset]
                 index += 1
     return fields
 
