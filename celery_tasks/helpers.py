@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from urlparse import urljoin
+from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup

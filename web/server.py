@@ -27,10 +27,6 @@ app.logger.addHandler(handler)
 app.debug = True
 toolbar = DebugToolbarExtension(app)
 
-# Celery
-# celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-# celery.conf.update(app.config)
-
 # flask-login
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
