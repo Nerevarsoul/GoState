@@ -1,11 +1,12 @@
 from celery import Celery
 from celery.task.schedules import crontab
+from celery.task import task, periodic_task
 
 from .celery import app
 from .helpers import igokisen_get_json, update_title
 
 
-@app.periodic_task(run_every=crontab(minute=0, hour=4))
+@periodic_task(run_every=crontab(minute=0, hour=4))
 def update_igokisen():
     titles = igokisen_get_json()
     for title in titles:

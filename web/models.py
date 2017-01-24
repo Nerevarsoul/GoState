@@ -2,7 +2,7 @@ from datetime import date, datetime
 
 from sqlalchemy_utils import ChoiceType
 
-from .server import db
+from .core import db
 
 
 class Player(db.Model):

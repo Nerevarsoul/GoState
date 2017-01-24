@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 from flask_debugtoolbar import DebugToolbarExtension
 # from werkzeug.contrib.fixers import ProxyFix
 
-# from celery import Celery
+from .core import db
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -32,7 +32,8 @@ login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
 # flask-sqlalchemy
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
+db.init_app(app)
 migrate = Migrate(app, db)
 
 # flask-marshmallow
