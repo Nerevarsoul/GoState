@@ -5,6 +5,7 @@ from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
 
+from helpers import get_or_create
 from web.models import Player, Title, Tournament, Game
 from web.server import db
 
@@ -44,18 +45,15 @@ def get_or_create_tournament(title_id, player_id, holding):
 
 
 def update_title(json_title):
-    title = Title.query.filter_by(name=json_title['titleName'], country=json_title['countryName']).first()
+    title = get_or_create(db.session, Title, name=json_title['titleName'], country=json_title['countryName'])
     player = get_or_create_igokisen_player(json_title['winnerName'], json_title['countryName'])
 
-    if not title:
-        title = Title(name=json_title['titleName'], country=json_title['countryName'])
-        title.igo_url = urljoin(json_title['countryNameAbbreviation'], json_title['htmlFileName'])
+    title.igo_url = urljoin(json_title['countryNameAbbreviation'], json_title['htmlFileName'])
     title.holding = json_title['holding']
     if player:
         title.current_winner = player.id
     title.time_edited = datetime.now()
     
-    db.session.add(title)
     db.session.commit()
 
     if not Tournament.query.filter_by(title=title.id, holding=title.holding):

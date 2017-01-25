@@ -23,3 +23,4 @@ def upload_igokisen_games(title):
 # @periodic_task(run_every=crontab(minute=0, hour=3))
 def update_gokifu():
     pass
+
